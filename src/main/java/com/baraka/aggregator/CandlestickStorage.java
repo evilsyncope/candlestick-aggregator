@@ -27,7 +27,6 @@ public class CandlestickStorage implements CandlestickProvider {
     }
 
     public List<Candlestick> candlesticksFor(Symbol symbol) {
-        // todo
         return Optional.ofNullable(candlestickStorage.get(symbol))
             .map(candlesticks -> candlesticks.stream().collect(toUnmodifiableList()))
             .orElseGet(Collections::emptyList);
