@@ -29,7 +29,7 @@ class CandlestickAggregatorTest {
     void should_apply_first_candlestick_for_symbol() {
         // given
         var tickerPrice = new BigDecimal(4);
-        var ticker = new Ticker(AAPL, now(), tickerPrice, TEN);
+        var ticker = new Ticker(AAPL, now(), tickerPrice);
         var startedAt = now().truncatedTo(MINUTES);
         var expected = new Candlestick(AAPL, startedAt, startedAt.plus(1, MINUTES), tickerPrice, tickerPrice, tickerPrice, tickerPrice);
 
@@ -44,7 +44,7 @@ class CandlestickAggregatorTest {
     void should_update_last_candlestick_for_symbol() {
         // given
         var tickerPrice = new BigDecimal(4);
-        var ticker = new Ticker(AAPL, now(), tickerPrice, TEN);
+        var ticker = new Ticker(AAPL, now(), tickerPrice);
         var startedAt = now().truncatedTo(MINUTES);
         var open = new BigDecimal(5);
         var close = new BigDecimal(6);

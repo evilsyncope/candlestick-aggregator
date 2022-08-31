@@ -25,7 +25,7 @@ class CandlestickTest {
         var low = new BigDecimal(2);
         var candlestick = new Candlestick(symbol("AAPL"), startedAt, startedAt.plus(1, MINUTES), open, close, high, low);
         var tickerPrice = new BigDecimal(4);
-        var ticker = new Ticker(symbol("AAPL"), now(), tickerPrice, TEN);
+        var ticker = new Ticker(symbol("AAPL"), now(), tickerPrice);
         var expected = new Candlestick(symbol("AAPL"), startedAt, startedAt.plus(1, MINUTES), open, tickerPrice, high, low);
 
         // when
@@ -45,7 +45,7 @@ class CandlestickTest {
         var low = new BigDecimal(2);
         var candlestick = new Candlestick(symbol("AAPL"), startedAt, startedAt.plus(1, MINUTES), open, close, high, low);
         var tickerPrice = new BigDecimal(1);
-        var ticker = new Ticker(symbol("AAPL"), now(), tickerPrice, TEN);
+        var ticker = new Ticker(symbol("AAPL"), now(), tickerPrice);
         var expected = new Candlestick(symbol("AAPL"), startedAt, startedAt.plus(1, MINUTES), open, tickerPrice, high, tickerPrice);
 
         // when
@@ -65,7 +65,7 @@ class CandlestickTest {
         var low = new BigDecimal(2);
         var candlestick = new Candlestick(symbol("AAPL"), startedAt, startedAt.plus(1, MINUTES), open, close, high, low);
         var tickerPrice = new BigDecimal(8);
-        var ticker = new Ticker(symbol("AAPL"), now(), tickerPrice, TEN);
+        var ticker = new Ticker(symbol("AAPL"), now(), tickerPrice);
         var expected = new Candlestick(symbol("AAPL"), startedAt, startedAt.plus(1, MINUTES), open, tickerPrice, tickerPrice, low);
 
         // when
@@ -80,7 +80,7 @@ class CandlestickTest {
         // given
         var startedAt = now();
         var candlestick = new Candlestick(symbol("AAPL"), startedAt, startedAt.plus(1, MINUTES), ZERO, ZERO, ZERO, ZERO);
-        var ticker = new Ticker(symbol("TSLA"), now(), ONE, TEN);
+        var ticker = new Ticker(symbol("TSLA"), now(), ONE);
 
         // then
         assertThatThrownBy(() -> candlestick.aggregate(ticker))

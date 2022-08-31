@@ -9,14 +9,12 @@ public class Ticker {
     public final Symbol symbol;
     public final Instant time;
     public final BigDecimal price;
-    public final BigDecimal closePrice;
 
-    public Ticker(Symbol symbol, Instant time, BigDecimal price, BigDecimal closePrice) {
+    public Ticker(Symbol symbol, Instant time, BigDecimal price) {
         // todo validation
         this.symbol = symbol;
         this.time = time;
         this.price = price;
-        this.closePrice = closePrice;
     }
 
     @Override
@@ -24,12 +22,12 @@ public class Ticker {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Ticker ticker = (Ticker) o;
-        return Objects.equals(symbol, ticker.symbol) && Objects.equals(time, ticker.time) && Objects.equals(price, ticker.price) && Objects.equals(closePrice, ticker.closePrice);
+        return Objects.equals(symbol, ticker.symbol) && Objects.equals(time, ticker.time) && Objects.equals(price, ticker.price);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(symbol, time, price, closePrice);
+        return Objects.hash(symbol, time, price);
     }
 
     @Override
@@ -38,7 +36,6 @@ public class Ticker {
             "symbol=" + symbol +
             ", time=" + time +
             ", price=" + price +
-            ", closePrice=" + closePrice +
             '}';
     }
 }

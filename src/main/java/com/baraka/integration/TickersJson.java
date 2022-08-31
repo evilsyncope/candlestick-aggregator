@@ -7,9 +7,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.time.Instant;
 import java.util.Collection;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-import java.util.stream.StreamSupport;
 
 import static com.baraka.domain.Symbol.symbol;
 import static java.util.stream.Collectors.toList;
@@ -25,8 +22,6 @@ public class TickersJson {
             .map(ticker -> new Ticker(
                 symbol(ticker.get("s").asText()),
                 Instant.ofEpochMilli(ticker.get("t").longValue()),
-                ticker.get("p").decimalValue(),
-                // todo remove
                 ticker.get("p").decimalValue()))
             .collect(toList());
     }
