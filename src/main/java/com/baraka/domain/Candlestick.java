@@ -1,7 +1,6 @@
 package com.baraka.domain;
 
 import com.google.common.base.Preconditions;
-import org.checkerframework.checker.units.qual.C;
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -31,6 +30,16 @@ public class Candlestick {
         this.close = close;
         this.high = high;
         this.low = low;
+    }
+
+    public Candlestick(Ticker ticker, Instant startedAt, Instant endsAt) {
+        this.symbol = ticker.symbol;
+        this.startedAt = startedAt;
+        this.endsAt = endsAt;
+        this.open = ticker.price;
+        this.close = ticker.price;
+        this.high = ticker.price;
+        this.low = ticker.price;
     }
 
     public Candlestick aggregate(Ticker ticker) {

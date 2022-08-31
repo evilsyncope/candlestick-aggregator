@@ -1,5 +1,7 @@
 package com.baraka;
 
+import com.baraka.aggregator.CandlestickProvider;
+import com.baraka.aggregator.CandlestickStorage;
 import com.baraka.integration.TickerWebsocketConnector;
 import org.eclipse.jetty.websocket.client.ClientUpgradeRequest;
 import org.eclipse.jetty.websocket.client.WebSocketClient;
@@ -12,6 +14,7 @@ public class CandlesticksApp {
 
     public static final URI TICKERS_WEBSOCKET_URL = URI.create("ws://b-mocks.dev.app.getbaraka.com:9989");
     private final WebSocketClient webSocketClient;
+    private final CandlestickStorage candlestickStorage = new CandlestickStorage();
 
     public CandlesticksApp() {
         this.webSocketClient = new WebSocketClient();
@@ -20,7 +23,7 @@ public class CandlesticksApp {
     public void connect() throws Exception {
         // todo upgrade request?
         webSocketClient.start();
-        webSocketClient.connect(new TickerWebsocketConnector(), TICKERS_WEBSOCKET_URL, new ClientUpgradeRequest());
+        webSocketClient.connect(new TickerWebsocketConnector(candlestickStorage), TICKERS_WEBSOCKET_URL, new ClientUpgradeRequest());
     }
 
     public static void main(String[] args) throws Exception {
