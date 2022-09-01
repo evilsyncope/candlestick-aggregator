@@ -6,10 +6,10 @@ import com.baraka.domain.Ticker;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
+import java.util.ArrayDeque;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.LinkedBlockingDeque;
 
 import static com.baraka.domain.Symbol.symbol;
 import static java.math.BigDecimal.ONE;
@@ -53,7 +53,7 @@ class CandlestickAggregatorTest {
         var initialCandlestick2 = new Candlestick(symbol("AAPL"), startedAt, startedAt.plus(1, MINUTES), open, close, high, low);
         var expected = new Candlestick(AAPL, startedAt, startedAt.plus(1, MINUTES), open, tickerPrice, high, low);
         var initialCandlesticks = List.of(initialCandlestick1, initialCandlestick2);
-        var initialStateStorage = new CandlestickStorage(new HashMap<>(Map.of(AAPL, new LinkedBlockingDeque<>(initialCandlesticks))));
+        var initialStateStorage = new CandlestickStorage(new HashMap<>(Map.of(AAPL, new ArrayDeque<>(initialCandlesticks))));
         var aggregatorWithState = new CandlestickAggregator(initialStateStorage);
 
         // when
@@ -78,7 +78,7 @@ class CandlestickAggregatorTest {
         var tickerMinute = ticker.time.truncatedTo(MINUTES);
         var expected = new Candlestick(ticker, tickerMinute, tickerMinute.plus(1, MINUTES));
         var initialCandlesticks = List.of(initialCandlestick1, initialCandlestick2);
-        var initialStateStorage = new CandlestickStorage(new HashMap<>(Map.of(AAPL, new LinkedBlockingDeque<>(initialCandlesticks))));
+        var initialStateStorage = new CandlestickStorage(new HashMap<>(Map.of(AAPL, new ArrayDeque<>(initialCandlesticks))));
         var aggregatorWithState = new CandlestickAggregator(initialStateStorage);
 
         // when

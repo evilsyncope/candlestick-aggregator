@@ -16,6 +16,7 @@ import static java.util.stream.Collectors.toUnmodifiableList;
 public class CandlestickStorage implements CandlestickProvider {
 
     private final Map<Symbol, Deque<Candlestick>> candlestickStorage;
+    private final Map<Symbol, Object> locks = new ConcurrentHashMap<>();
 
     public CandlestickStorage() {
         this.candlestickStorage = new ConcurrentHashMap<>();
@@ -36,13 +37,19 @@ public class CandlestickStorage implements CandlestickProvider {
     }
 
     public void applyCandlestickFor(Candlestick candlestick) {
-        final var candlesticks = candlestickStorage.computeIfAbsent(candlestick.symbol, s -> new LinkedBlockingDeque<>());
-        candlesticks.offer(candlestick);
+        final var symbolLock = locks.computeIfAbsent(candlestick.symbol, s -> new Object());
+        synchronized(symbolLock) {
+            final var candlesticks = candlestickStorage.computeIfAbsent(candlestick.symbol, s -> new LinkedBlockingDeque<>());
+            candlesticks.offer(candlestick);
+        }
     }
 
     public void replaceLastCandlestick(Candlestick replacement) {
-        final var candlesticks = candlestickStorage.computeIfAbsent(replacement.symbol, s -> new LinkedBlockingDeque<>());
-        candlesticks.pollLast();
-        candlesticks.offer(replacement);
+        final var symbolLock = locks.computeIfAbsent(replacement.symbol, s -> new Object());
+        synchronized(symbolLock) {
+            final var candlesticks = candlestickStorage.computeIfAbsent(replacement.symbol, s -> new LinkedBlockingDeque<>());
+            candlesticks.pollLast();
+            candlesticks.offer(replacement);
+        }
     }
 }

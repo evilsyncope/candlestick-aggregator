@@ -4,15 +4,13 @@ import com.baraka.domain.Symbol;
 import com.baraka.testfixtures.CandlestickTestData;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayDeque;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.LinkedBlockingDeque;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static com.baraka.domain.Symbol.symbol;
-import static java.time.Instant.now;
 import static java.util.stream.Collectors.toList;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -37,8 +35,8 @@ class CandlestickStorageTest implements CandlestickTestData {
         // given
         var aaplCandlesticks = List.of(aCandlestick(), aCandlestick());
         var storage = new CandlestickStorage(Map.of(
-            AAPL, new LinkedBlockingDeque<>(aaplCandlesticks),
-            symbol("TSLA"), new LinkedBlockingDeque<>(List.of(aCandlestick())))
+            AAPL, new ArrayDeque<>(aaplCandlesticks),
+            symbol("TSLA"), new ArrayDeque<>(List.of(aCandlestick())))
         );
 
         // when
@@ -54,7 +52,7 @@ class CandlestickStorageTest implements CandlestickTestData {
         var lastCandlestick = aCandlestick();
         var aaplCandlesticks = List.of(aCandlestick(), lastCandlestick);
         var storage = new CandlestickStorage(Map.of(
-            AAPL, new LinkedBlockingDeque<>(aaplCandlesticks)
+            AAPL, new ArrayDeque<>(aaplCandlesticks)
         ));
 
         // when
@@ -71,7 +69,7 @@ class CandlestickStorageTest implements CandlestickTestData {
         var aaplCandlesticks = List.of(aCandlestick(), aCandlestick());
         var newCandlestick = aCandlestick();
         var storage = new CandlestickStorage(new HashMap<>(Map.of(
-            AAPL, new LinkedBlockingDeque<>(aaplCandlesticks)
+            AAPL, new ArrayDeque<>(aaplCandlesticks)
         )));
 
         // when
@@ -88,7 +86,7 @@ class CandlestickStorageTest implements CandlestickTestData {
         var aaplCandlesticks = List.of(firstCandlestick, aCandlestick());
         var replacement = aCandlestick();
         var storage = new CandlestickStorage(new HashMap<>(Map.of(
-            AAPL, new LinkedBlockingDeque<>(aaplCandlesticks)
+            AAPL, new ArrayDeque<>(aaplCandlesticks)
         )));
 
         // when
