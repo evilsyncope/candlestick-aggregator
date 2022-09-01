@@ -15,7 +15,6 @@ import static java.util.stream.Collectors.toUnmodifiableList;
 
 public class CandlestickStorage implements CandlestickProvider {
 
-    // todo empty candlesticks
     private final Map<Symbol, Deque<Candlestick>> candlestickStorage;
 
     public CandlestickStorage() {

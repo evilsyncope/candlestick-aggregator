@@ -32,7 +32,9 @@ class CandlesticksResourceSpec extends Specification {
         def response = client.send(request, HttpResponse.BodyHandlers.ofString()).body()
 
         then:
-        def candlesticks = objectMapper.readValue(response, List)
+        def result = objectMapper.readValue(response, Map.class)
+        def candlesticks = result.get('values') as List
+        assertThat(result.get('symbol')).isEqualTo('AAPL')
         assertThat(candlesticks.size()).isEqualTo(1)
     }
 }

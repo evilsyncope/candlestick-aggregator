@@ -40,7 +40,6 @@ public class CandlesticksApp {
     }
 
     private void connect() throws Exception {
-        // todo upgrade request?
         webSocketClient.start();
         webSocketClient.connect(new TickerWebsocketConnector(candlestickStorage), TICKERS_WEBSOCKET_URL, new ClientUpgradeRequest());
     }

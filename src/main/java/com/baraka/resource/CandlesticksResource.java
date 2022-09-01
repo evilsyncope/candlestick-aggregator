@@ -23,6 +23,6 @@ public class CandlesticksResource  {
 
     private JsonNode candlesticks(Request rq, Response rs) {
         final var symbol = symbol(rq.queryParams("symbol").toUpperCase());
-        return CandlesticksJson.serialize(candlestickStorage.candlesticksFor(symbol));
+        return CandlesticksJson.serialize(symbol, candlestickStorage.candlesticksFor(symbol));
     }
 }

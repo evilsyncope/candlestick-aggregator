@@ -11,7 +11,6 @@ public class Ticker {
     public final BigDecimal price;
 
     public Ticker(Symbol symbol, Instant time, BigDecimal price) {
-        // todo validation
         this.symbol = symbol;
         this.time = time;
         this.price = price;
