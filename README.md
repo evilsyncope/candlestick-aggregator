@@ -1,6 +1,6 @@
 # candlestick-aggregator
 
-This app uses Spark Java to provide REST interface and to collect stock prices via websocket connection. All candlesticks are stored in memory. `CandlestickStorage` also can utilise some external key-value storage like `Redis`.
+This app uses Spark Java to provide REST interface and to collect stock prices via websocket connection. All candlesticks are stored in memory. `CandlestickStorage` also could utilise some external key-value storage like `Redis` with minor adjustments.
 
 
 ## How to use it:
