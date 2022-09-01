@@ -1,13 +1,19 @@
 plugins {
     id 'java'
     id 'groovy'
+    id "com.github.johnrengelman.shadow" version "7.0.0" apply false
 }
 
 repositories {
     mavenCentral()
 }
 
+
+apply plugin: 'com.github.johnrengelman.shadow'
+
 dependencies {
+
+
     implementation 'com.sparkjava:spark-core:2.9.4'
     implementation 'org.eclipse.jetty.websocket:websocket-client:9.4.48.v20220622'
     implementation 'org.slf4j:slf4j-api:2.0.0'
@@ -26,3 +32,14 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+
+shadowJar {
+    zip64 true
+    mergeServiceFiles()
+    manifest {
+        attributes "Main-Class": 'com.baraka.CandlesticksApp'
+    }
+    archiveFileName = "candlestick-aggregator.jar"
+}
+
+build.dependsOn += shadowJar
